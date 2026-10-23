@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<title>tour-3</title>
+<link rel="stylesheet" href="mock.css">
+<link rel="stylesheet" href="tour.css">
+<style>
+  .catalog { display: grid; grid-template-columns: 132px minmax(0, 1fr); gap: 20px; padding: 12px 24px 0; }
+  .filters { font-size: 6px; color: var(--muted); }
+  .filters__title { margin-bottom: 10px; font-size: 6px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink); }
+  .filters__group { padding: 9px 0; border-top: 1px solid var(--line); }
+  .filters__group:first-of-type { border-top: 0; }
+  .filters__item { display: flex; justify-content: space-between; padding: 3px 0; }
+  .filters__item.is-on { color: var(--ink); }
+
+  .goods { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+  .goods .pcard__img { height: 112px; }
+  .goods .pcard__name { font-size: 6px; }
+  .goods .pcard__price { font-size: 5.5px; }
+</style>
+</head>
+<body>
+  <div class="page">
+    <header class="top">
+      <span class="wordmark">ATELIER</span>
+      <nav class="top__nav"><span class="is-active">Коллекции</span><span>Лукбук</span><span>О бренде</span></nav>
+      <div class="top__icons"><i class="icon"></i><i class="icon icon--bag"></i></div>
+    </header>
+
+    <div class="main">
+      <p class="crumb">Главная / Коллекции / <span>Лён и вышивка</span></p>
+      <div class="head">
+        <h1>Каталог коллекции</h1>
+        <p>24 предмета · сортировка по цене</p>
+      </div>
+
+      <div class="catalog">
+        <aside class="filters">
+          <p class="filters__title">Фильтры</p>
+          <div class="filters__group">
+            <p class="filters__item is-on"><span>Платья</span><span>6</span></p>
+            <p class="filters__item"><span>Блузы</span><span>8</span></p>
+            <p class="filters__item"><span>Юбки</span><span>5</span></p>
+            <p class="filters__item"><span>Пальто</span><span>5</span></p>
+          </div>
+          <div class="filters__group">
+            <p class="filters__item is-on"><span>Лён</span><span>14</span></p>
+            <p class="filters__item"><span>Хлопок</span><span>10</span></p>
+          </div>
+          <div class="filters__group">
+            <p class="filters__item"><span>Размер S</span></p>
+            <p class="filters__item"><span>Размер M</span></p>
+            <p class="filters__item"><span>Размер L</span></p>
+          </div>
+        </aside>
+
+        <div class="goods">
+          <div><div class="thumb pcard__img linen tone-sage"><span class="sprig"></span></div><p class="pcard__name">Платье льняное</p><p class="pcard__price">18 900 ₽</p></div>
+          <div><div class="thumb pcard__img linen tone-sand"><span class="sprig"></span></div><p class="pcard__name">Блуза с вышивкой</p><p class="pcard__price">12 400 ₽</p></div>
+          <div><div class="thumb pcard__img linen tone-clay"><span class="sprig"></span></div><p class="pcard__name">Юбка льняная</p><p class="pcard__price">9 800 ₽</p></div>
+          <div><div class="thumb pcard__img linen tone-indigo"><span class="sprig"></span></div><p class="pcard__name">Пальто-рубашка</p><p class="pcard__price">24 500 ₽</p></div>
+          <div><div class="thumb pcard__img linen tone-ash"><span class="sprig"></span></div><p class="pcard__name">Костюм льняной</p><p class="pcard__price">21 300 ₽</p></div>
+          <div><div class="thumb pcard__img linen tone-linen"><span class="sprig"></span></div><p class="pcard__name">Кардиган с вышивкой</p><p class="pcard__price">16 200 ₽</p></div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="foot"><span>ATELIER · SS22</span><span>Каталог</span></footer>
+  </div>
+</body>
+</html>

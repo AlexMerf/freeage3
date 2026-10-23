@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<title>tour-4</title>
+<link rel="stylesheet" href="mock.css">
+<link rel="stylesheet" href="tour.css">
+<style>
+  .product { display: grid; grid-template-columns: 306px minmax(0, 1fr); gap: 26px; padding: 8px 24px 0; }
+  .product__media { position: relative; }
+  .product__img { height: 336px; }
+  .product__img .sprig { width: 40%; height: 58%; }
+  .product__thumbs { display: flex; gap: 7px; margin-top: 8px; }
+  .product__thumbs .thumb { width: 42px; height: 54px; }
+  .product__info { padding-top: 16px; }
+  .product__eyebrow { font-size: 5.5px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); }
+  .product__info h1 { margin-top: 7px; font-size: 24px; font-weight: 600; line-height: 1.02; letter-spacing: -0.035em; text-transform: uppercase; }
+  .product__price { margin-top: 8px; font-size: 12px; color: var(--accent); }
+  .product__desc { max-width: 46ch; margin-top: 12px; font-size: 6.5px; line-height: 1.6; color: var(--muted); }
+  .sizes { display: flex; gap: 6px; margin-top: 14px; }
+  .size { display: grid; place-items: center; width: 24px; height: 24px; border: 1px solid var(--line-strong); border-radius: 50%; font-size: 6px; }
+  .size.is-on { border-color: var(--ink); background: var(--ink); color: var(--paper); }
+  .product .btn { margin-top: 14px; padding: 9px 14px; font-size: 6px; }
+  .meta { margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--line); font-size: 5.5px; line-height: 1.7; color: var(--muted); }
+</style>
+</head>
+<body>
+  <div class="page">
+    <header class="top">
+      <span class="wordmark">ATELIER</span>
+      <nav class="top__nav"><span class="is-active">Коллекции</span><span>Лукбук</span><span>О бренде</span></nav>
+      <div class="top__icons"><i class="icon"></i><i class="icon icon--bag"></i></div>
+    </header>
+
+    <div class="main">
+      <p class="crumb">Главная / Коллекции / Лён и вышивка / <span>Платье льняное</span></p>
+
+      <div class="product">
+        <div class="product__media">
+          <div class="thumb product__img linen tone-sage"><span class="sprig"></span></div>
+          <div class="product__thumbs">
+            <div class="thumb linen tone-sage"><span class="sprig"></span></div>
+            <div class="thumb linen tone-sand"><span class="sprig"></span></div>
+            <div class="thumb linen tone-ash"><span class="sprig"></span></div>
+          </div>
+        </div>
+
+        <div class="product__info">
+          <p class="product__eyebrow">SS22 · Лён и вышивка</p>
+          <h1>Платье льняное с вышивкой</h1>
+          <p class="product__price">18 900 ₽</p>
+          <p class="product__desc">Прямое платье из плотного льна с ручной вышивкой по мотивам полевых трав. Свободный силуэт, спущенное плечо, длина ниже колена. Небольшая партия, каждый экземпляр отличается рисунком.</p>
+
+          <div class="sizes"><span class="size">S</span><span class="size is-on">M</span><span class="size">L</span></div>
+
+          <span class="btn btn--dark">В корзину</span>
+
+          <p class="meta">Состав: 100% лён · Вышивка: ручная · Уход: деликатная стирка<br>Доставка 1–2 дня · Возврат в течение 14 дней</p>
+        </div>
+      </div>
+    </div>
+
+    <footer class="foot"><span>ATELIER · SS22</span><span>Карточка товара</span></footer>
+  </div>
+</body>
+</html>

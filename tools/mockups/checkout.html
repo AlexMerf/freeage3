@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<title>checkout</title>
+<link rel="stylesheet" href="mock.css">
+<style>
+  html, body { width: 1586px; height: 992px; }
+
+  .page { height: 100%; background: var(--paper); }
+
+  .top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 70px;
+    padding: 0 56px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .top .wordmark { font-size: 14px; letter-spacing: 0.3em; }
+  .top__nav { display: flex; gap: 26px; font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); }
+  .top__icons { display: flex; gap: 15px; align-items: center; }
+  .top__bag { position: relative; }
+  .top__bag::after { content: "2"; position: absolute; right: -7px; top: -7px; display: grid; place-items: center; width: 12px; height: 12px; border-radius: 50%; background: var(--accent); color: #fff; font-size: 6px; }
+
+  .wrap { display: grid; grid-template-columns: minmax(0, 900px) 430px; gap: 64px; padding: 40px 56px 0; }
+
+  /* ---------- steps ---------- */
+  .steps { display: flex; align-items: center; gap: 18px; margin-bottom: 30px; }
+
+  .step { display: flex; align-items: center; gap: 9px; font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+  .step__num { display: grid; place-items: center; width: 24px; height: 24px; border: 1px solid var(--line-strong); border-radius: 50%; font-size: 8px; }
+  .step.is-done .step__num { border-color: var(--accent-soft); background: var(--accent-soft); color: #fff; }
+  .step.is-current .step__num { border-color: var(--ink); background: var(--ink); color: var(--paper); }
+  .step.is-current { color: var(--ink); }
+  .step__line { flex: 1; max-width: 70px; height: 1px; background: var(--line); }
+
+  /* ---------- form ---------- */
+  h2 { font-size: 26px; font-weight: 600; letter-spacing: -0.02em; text-transform: uppercase; }
+  .sub { margin-top: 5px; font-size: 10px; color: var(--muted); }
+
+  .section { padding: 34px 0 36px; border-top: 1px dashed var(--line); }
+  .section:first-of-type { border-top: 0; padding-top: 0; }
+
+  .fields { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 18px; }
+  .fieldset { display: flex; flex-direction: column; gap: 6px; }
+  .fieldset label { font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+  .fieldset label b { color: var(--accent); font-weight: 500; }
+  .fieldset .field { height: 48px; font-size: 12px; border-color: var(--line-strong); }
+  .fieldset--wide { grid-column: 1 / -1; }
+
+  .options { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; margin-top: 18px; }
+
+  .option {
+    position: relative;
+    padding: 20px 20px 18px;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    background: #fff;
+  }
+
+  .option.is-active { border-color: var(--accent-soft); box-shadow: 0 0 0 1px var(--accent-soft); }
+  .option__top { display: flex; align-items: center; gap: 8px; }
+  .radio { width: 12px; height: 12px; border: 1px solid var(--line-strong); border-radius: 50%; }
+  .option.is-active .radio { border-color: var(--accent); box-shadow: inset 0 0 0 3px #fff, inset 0 0 0 8px var(--accent); }
+  .option__title { font-size: 10px; font-weight: 500; }
+  .option__desc { margin-top: 9px; font-size: 9px; line-height: 1.45; color: var(--muted); }
+  .option__price { margin-top: 10px; font-size: 10px; }
+
+  .option__icon { width: 14px; height: 10px; border: 1px solid var(--ink-soft); border-radius: 1px; opacity: 0.55; }
+
+  /* ---------- summary ---------- */
+  .summary {
+    align-self: start;
+    padding: 24px 24px 22px;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    background: #fff;
+  }
+
+  .summary__head { display: flex; align-items: baseline; justify-content: space-between; }
+  .summary__title { font-size: 17px; font-weight: 600; }
+  .summary__count { font-size: 8.5px; color: var(--muted); }
+
+  .sitem { display: flex; gap: 12px; padding: 16px 0; border-bottom: 1px solid var(--line); }
+  .sitem__thumb { width: 62px; height: 80px; flex: none; }
+  .sitem__main { flex: 1; }
+  .sitem__name { font-size: 10.5px; line-height: 1.35; }
+  .sitem__meta { margin-top: 4px; font-size: 8.5px; color: var(--muted); }
+  .sitem__price { font-size: 10px; white-space: nowrap; }
+
+  .sumrow { display: flex; justify-content: space-between; margin-top: 11px; font-size: 10px; color: var(--muted); }
+  .sumrow--total { margin-top: 14px; padding-top: 12px; border-top: 1px dashed var(--line); font-size: 15px; font-weight: 600; color: var(--ink); }
+
+  .summary .btn { margin-top: 18px; padding: 13px; font-size: 8px; }
+  .summary__note { display: flex; align-items: center; justify-content: center; gap: 6px; margin-top: 10px; font-size: 7px; color: var(--muted); }
+  .lock { width: 7px; height: 6px; border: 1px solid var(--muted); border-radius: 1px; }
+</style>
+</head>
+<body>
+  <div class="page">
+    <header class="top">
+      <span class="wordmark">ATELIER</span>
+      <nav class="top__nav"><span>Коллекции</span><span>Лукбук</span><span>О бренде</span></nav>
+      <div class="top__icons"><i class="icon"></i><i class="icon icon--bag top__bag"></i></div>
+    </header>
+
+    <div class="wrap">
+      <div>
+        <div class="steps">
+          <span class="step is-current"><span class="step__num">1</span>Контакты</span>
+          <span class="step__line"></span>
+          <span class="step"><span class="step__num">2</span>Доставка</span>
+          <span class="step__line"></span>
+          <span class="step"><span class="step__num">3</span>Оплата</span>
+        </div>
+
+        <section class="section">
+          <h2>Контакты</h2>
+          <p class="sub">Заполните данные, чтобы мы могли связаться с вами.</p>
+          <div class="fields">
+            <div class="fieldset"><label>Имя <b>*</b></label><div class="field">Анна</div></div>
+            <div class="fieldset"><label>Телефон <b>*</b></label><div class="field">+7 900 000-00-00</div></div>
+            <div class="fieldset"><label>Email <b>*</b></label><div class="field">anna@example.com</div></div>
+            <div class="fieldset"><label>Город <b>*</b></label><div class="field">Москва</div></div>
+            <div class="fieldset fieldset--wide"><label>Адрес <b>*</b></label><div class="field">Ул. Примерная, 1</div></div>
+          </div>
+        </section>
+
+        <section class="section">
+          <h2>Доставка</h2>
+          <p class="sub">Выберите удобный способ получения заказа.</p>
+          <div class="options">
+            <div class="option is-active">
+              <div class="option__top"><span class="radio"></span><span class="option__title">Курьером</span></div>
+              <p class="option__desc">Доставка по городу<br>1–2 дня</p>
+              <p class="option__price">0 ₽</p>
+            </div>
+            <div class="option">
+              <div class="option__top"><span class="radio"></span><span class="option__title">Самовывоз</span></div>
+              <p class="option__desc">Забрать в шоуруме<br>ежедневно с 11:00</p>
+              <p class="option__price">0 ₽</p>
+            </div>
+            <div class="option">
+              <div class="option__top"><span class="radio"></span><span class="option__title">Почтой</span></div>
+              <p class="option__desc">Доставка по России<br>3–7 дней</p>
+              <p class="option__price">490 ₽</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="section">
+          <h2>Оплата</h2>
+          <p class="sub">Выберите способ оплаты.</p>
+          <div class="options">
+            <div class="option is-active">
+              <div class="option__top"><span class="radio"></span><span class="option__title">Картой онлайн</span></div>
+              <p class="option__desc">Безопасная оплата банковской картой</p>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <aside class="summary">
+        <div class="summary__head">
+          <span class="summary__title">Ваш заказ</span>
+          <span class="summary__count">2 товара</span>
+        </div>
+
+        <div class="sitem">
+          <div class="thumb sitem__thumb linen tone-sage"><span class="sprig"></span></div>
+          <div class="sitem__main">
+            <p class="sitem__name">Платье льняное с вышивкой</p>
+            <p class="sitem__meta">Размер M · 1 шт.</p>
+          </div>
+          <span class="sitem__price">18 900 ₽</span>
+        </div>
+
+        <div class="sitem">
+          <div class="thumb sitem__thumb linen tone-sand"><span class="sprig"></span></div>
+          <div class="sitem__main">
+            <p class="sitem__name">Блуза с вышивкой</p>
+            <p class="sitem__meta">Размер S · 1 шт.</p>
+          </div>
+          <span class="sitem__price">12 400 ₽</span>
+        </div>
+
+        <div class="sumrow"><span>Товары (2)</span><span>31 300 ₽</span></div>
+        <div class="sumrow"><span>Доставка</span><span>0 ₽</span></div>
+        <div class="sumrow sumrow--total"><span>Итого</span><span>31 300 ₽</span></div>
+
+        <span class="btn btn--dark btn--block">Подтвердить заказ</span>
+        <p class="summary__note"><i class="lock"></i>Ваши данные защищены</p>
+      </aside>
+    </div>
+  </div>
+</body>
+</html>

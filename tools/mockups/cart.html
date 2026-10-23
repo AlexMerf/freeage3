@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<title>cart</title>
+<link rel="stylesheet" href="mock.css">
+<style>
+  html, body { width: 535px; height: 381px; }
+
+  .page { position: relative; width: 100%; height: 100%; overflow: hidden; background: var(--paper); }
+
+  .bg { position: absolute; inset: 0; }
+
+  .bg .site__bar { height: 34px; padding: 0 18px; }
+  .bg .wordmark { font-size: 8px; letter-spacing: 0.28em; }
+  .bg .site__nav { gap: 13px; font-size: 6px; }
+  .bg .icon { width: 8px; height: 8px; }
+
+  .bg__hero { display: grid; grid-template-columns: 218px 1fr; height: 214px; }
+  .bg__copy { display: flex; flex-direction: column; justify-content: center; padding: 20px 18px; }
+  .bg__eyebrow { font-size: 6px; }
+  .bg__copy h1 { margin-top: 6px; font-size: 25px; font-weight: 600; line-height: 0.95; letter-spacing: -0.04em; text-transform: uppercase; }
+  .bg__copy .btn { margin-top: 10px; padding: 5px 8px; font-size: 5.5px; align-self: flex-start; }
+  .bg__visual { position: relative; overflow: hidden; }
+  .bg__visual .sprig { position: absolute; left: 50%; top: 50%; width: 90px; height: 120px; transform: translate(-50%, -50%); color: rgba(247, 244, 239, 0.8); }
+  .bg__ghost { position: absolute; right: -6px; bottom: -24px; font-size: 120px; font-weight: 600; color: rgba(247, 244, 239, 0.14); letter-spacing: -0.06em; }
+
+  .bg__cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; height: 100px; background: var(--line); }
+  .bg__card { padding: 8px 10px; background: var(--paper); }
+  .bg__thumb { height: 54px; }
+  .bg__name { margin-top: 4px; font-size: 6px; }
+
+  .overlay { position: absolute; inset: 0; background: rgba(20, 17, 13, 0.42); }
+
+  .drawer {
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 300px;
+    padding: 17px 20px 16px;
+    background: #fffdf9;
+    box-shadow: -18px 0 40px -20px rgba(20, 17, 13, 0.6);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .drawer__head { display: flex; align-items: baseline; gap: 7px; }
+  .drawer__title { font-size: 14px; font-weight: 600; letter-spacing: -0.01em; }
+  .drawer__count { font-size: 8px; color: var(--muted); }
+  .drawer__close { margin-left: auto; font-size: 11px; color: var(--muted); }
+
+  .item { display: flex; gap: 10px; padding: 13px 0; border-bottom: 1px solid var(--line); }
+  .item:first-of-type { margin-top: 4px; }
+  .item__thumb { width: 44px; height: 58px; flex: none; }
+  .item__main { flex: 1; min-width: 0; }
+  .item__name { font-size: 8.5px; line-height: 1.3; }
+  .item__meta { margin-top: 3px; font-size: 6.5px; color: var(--muted); }
+  .item__row { display: flex; align-items: center; justify-content: space-between; margin-top: 7px; }
+
+  .qty { display: flex; align-items: center; gap: 7px; font-size: 7px; }
+  .qty span { display: grid; place-items: center; width: 13px; height: 13px; border: 1px solid var(--line-strong); font-size: 7px; }
+
+  .item__price { font-size: 8px; white-space: nowrap; }
+
+  .sum { margin-top: auto; padding-top: 12px; border-top: 1px solid var(--line); }
+  .sum__row { display: flex; justify-content: space-between; font-size: 7.5px; color: var(--muted); margin-bottom: 5px; }
+  .sum__row--total { margin-top: 8px; padding-top: 8px; border-top: 1px dashed var(--line); color: var(--ink); font-size: 11px; font-weight: 600; }
+
+  .drawer .btn--block { margin-top: 13px; font-size: 7.5px; padding: 9px; }
+  .drawer__note { margin-top: 7px; text-align: center; font-size: 6px; color: var(--muted); }
+</style>
+</head>
+<body>
+  <div class="page">
+    <div class="bg">
+      <div class="site">
+        <div class="site__bar">
+          <span class="wordmark">ATELIER</span>
+          <nav class="site__nav"><span>Коллекции</span><span>Лукбук</span><span>О бренде</span></nav>
+          <div class="site__icons"><i class="icon"></i><i class="icon icon--bag"></i></div>
+        </div>
+        <div class="bg__hero">
+          <div class="bg__copy">
+            <p class="eyebrow bg__eyebrow">SS22</p>
+            <h1>Новая коллекция</h1>
+            <span class="btn btn--dark">Смотреть</span>
+          </div>
+          <div class="bg__visual linen tone-indigo">
+            <span class="bg__ghost">A</span>
+            <span class="sprig"></span>
+          </div>
+        </div>
+        <div class="bg__cards">
+          <div class="bg__card"><div class="thumb bg__thumb linen tone-sage"><span class="sprig"></span></div><p class="bg__name">Платье льняное</p></div>
+          <div class="bg__card"><div class="thumb bg__thumb linen tone-sand"><span class="sprig"></span></div><p class="bg__name">Блуза с вышивкой</p></div>
+          <div class="bg__card"><div class="thumb bg__thumb linen tone-clay"><span class="sprig"></span></div><p class="bg__name">Юбка льняная</p></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="overlay"></div>
+
+    <aside class="drawer">
+      <div class="drawer__head">
+        <span class="drawer__title">Корзина</span>
+        <span class="drawer__count">2</span>
+        <span class="drawer__close">✕</span>
+      </div>
+
+      <div class="item">
+        <div class="thumb item__thumb linen tone-sage"><span class="sprig"></span></div>
+        <div class="item__main">
+          <p class="item__name">Платье льняное с вышивкой</p>
+          <p class="item__meta">Размер M · цвет серо-голубой</p>
+          <div class="item__row">
+            <span class="qty"><span>−</span>1<span>+</span></span>
+            <span class="item__price">18 900 ₽</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="item">
+        <div class="thumb item__thumb linen tone-sand"><span class="sprig"></span></div>
+        <div class="item__main">
+          <p class="item__name">Блуза с вышивкой</p>
+          <p class="item__meta">Размер S · цвет песочный</p>
+          <div class="item__row">
+            <span class="qty"><span>−</span>1<span>+</span></span>
+            <span class="item__price">12 400 ₽</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="sum">
+        <div class="sum__row"><span>Доставка</span><span>0 ₽</span></div>
+        <div class="sum__row sum__row--total"><span>Итого</span><span>31 300 ₽</span></div>
+        <span class="btn btn--dark btn--block">Оформить заказ</span>
+        <p class="drawer__note">Бесплатная доставка при заказе от 10 000 ₽</p>
+      </div>
+    </aside>
+  </div>
+</body>
+</html>

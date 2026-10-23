@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<title>lookbook-ss22</title>
+<link rel="stylesheet" href="mock.css">
+<style>
+  html, body { width: 1536px; height: 1024px; }
+
+  .page { height: 100%; padding: 0 56px; background: var(--paper); }
+
+  .top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 72px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .top .wordmark { font-size: 15px; letter-spacing: 0.3em; }
+  .top__right { display: flex; align-items: center; gap: 22px; font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); }
+
+  .head {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 40px;
+    padding: 26px 0 24px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .head h1 {
+    font-size: 52px;
+    font-weight: 600;
+    line-height: 0.96;
+    letter-spacing: -0.04em;
+    text-transform: uppercase;
+  }
+
+  .head__side { max-width: 34ch; padding-bottom: 4px; font-size: 11px; line-height: 1.6; color: var(--muted); }
+  .head__eyebrow { margin-bottom: 8px; }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 22px 22px;
+    padding-top: 24px;
+  }
+
+  .look { display: flex; flex-direction: column; }
+
+  .frame {
+    position: relative;
+    height: 318px;
+    overflow: hidden;
+    background: #e9e1d5;
+  }
+
+  .frame > .fill { position: absolute; inset: 0; }
+
+  .frame::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    background: linear-gradient(
+      180deg,
+      rgba(20, 17, 13, 0.5) 0%,
+      rgba(20, 17, 13, 0) 18%,
+      rgba(20, 17, 13, 0) 52%,
+      rgba(20, 17, 13, 0.74) 100%
+    );
+  }
+
+  .frame__num {
+    position: absolute;
+    left: 16px;
+    top: 14px;
+    z-index: 5;
+    font-size: 8px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.92);
+    text-shadow: 0 1px 3px rgba(20, 17, 13, 0.5);
+  }
+
+  .frame__cap {
+    position: absolute;
+    left: 16px;
+    right: 16px;
+    bottom: 12px;
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    font-size: 8.5px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #fff;
+    text-shadow: 0 1px 3px rgba(20, 17, 13, 0.55);
+  }
+
+  .look__caption {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 14px;
+    padding: 10px 0 0;
+    font-size: 9px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .look__caption b { font-weight: 500; color: var(--ink-soft); letter-spacing: 0.04em; text-transform: none; font-size: 10px; }
+
+  /* individual studies */
+  .study-type { display: grid; place-items: center; }
+
+  .study-type span {
+    font-size: 150px;
+    font-weight: 600;
+    line-height: 0.8;
+    letter-spacing: -0.07em;
+    color: rgba(247, 244, 239, 0.16);
+    transform: translate(18px, 20px);
+  }
+
+  .study-type i {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 120px;
+    height: 170px;
+    transform: translate(-50%, -52%) rotate(4deg);
+    color: rgba(247, 244, 239, 0.9);
+  }
+
+  .fold-a {
+    background-image:
+      radial-gradient(70% 80% at 30% 20%, rgba(255, 255, 255, 0.42), transparent 62%),
+      radial-gradient(60% 70% at 80% 80%, rgba(40, 30, 18, 0.28), transparent 60%),
+      linear-gradient(155deg, #c4c9b8, #8b9583 62%, #a8b09c);
+  }
+
+  .fold-b {
+    background-image:
+      linear-gradient(158deg, transparent 44%, rgba(58, 42, 24, 0.2) 45%, rgba(255, 255, 255, 0.24) 47%, transparent 49%),
+      repeating-linear-gradient(97deg, rgba(255, 255, 255, 0.16) 0 2px, rgba(58, 42, 24, 0.08) 2px 4px, transparent 4px 11px),
+      linear-gradient(140deg, #e2d5be, #c2ad8d);
+  }
+
+  .pleats {
+    background-image:
+      repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.36) 0 7px, rgba(88, 66, 40, 0.18) 7px 13px, rgba(255, 255, 255, 0.06) 13px 18px),
+      linear-gradient(180deg, rgba(30, 24, 15, 0.22), transparent 55%);
+  }
+
+  .study-sprig { display: grid; place-items: center; }
+  .study-sprig i { width: 44%; height: 68%; color: rgba(52, 40, 24, 0.5); }
+
+  .study-border::before {
+    content: "";
+    position: absolute;
+    inset: 18px;
+    border: 1px dashed rgba(247, 244, 239, 0.55);
+    z-index: 2;
+  }
+
+  .study-giant span {
+    position: absolute;
+    right: -12px;
+    bottom: -32px;
+    font-size: 150px;
+    font-weight: 600;
+    line-height: 0.8;
+    letter-spacing: -0.06em;
+    color: rgba(247, 244, 239, 0.18);
+  }
+</style>
+</head>
+<body>
+  <div class="page">
+    <header class="top">
+      <span class="wordmark">ATELIER</span>
+      <div class="top__right"><span>Лукбук</span><i class="icon"></i><i class="icon icon--bag"></i></div>
+    </header>
+
+    <div class="head">
+      <div>
+        <p class="head__eyebrow eyebrow">Spring-summer 22</p>
+        <h1>Лукбук<br>коллекции</h1>
+      </div>
+      <p class="head__side">Галерея кадров коллекции: фактуры льна, вышивка и цветовые сочетания сезона. Каждый кадр ведёт в карточку коллекции.</p>
+    </div>
+
+    <div class="grid">
+      <article class="look">
+        <div class="frame">
+          <div class="fill linen tone-indigo study-type">
+            <span>A</span>
+            <i class="sprig"></i>
+          </div>
+          <span class="frame__num">Look 01</span>
+          <div class="frame__cap"><span>Лён и вышивка</span><span>→</span></div>
+        </div>
+        <p class="look__caption"><b>Платье льняное</b><span>Смотреть коллекцию</span></p>
+      </article>
+
+      <article class="look">
+        <div class="frame">
+          <div class="fill fold-a"></div>
+          <span class="frame__num">Look 02</span>
+          <div class="frame__cap"><span>Свободный силуэт</span><span>→</span></div>
+        </div>
+        <p class="look__caption"><b>Блуза с вышивкой</b><span>Смотреть коллекцию</span></p>
+      </article>
+
+      <article class="look">
+        <div class="frame">
+          <div class="fill linen tone-clay study-border"></div>
+          <span class="frame__num">Look 03</span>
+          <div class="frame__cap"><span>Тёплый оттенок</span><span>→</span></div>
+        </div>
+        <p class="look__caption"><b>Юбка льняная</b><span>Смотреть коллекцию</span></p>
+      </article>
+
+      <article class="look">
+        <div class="frame">
+          <div class="fill linen tone-sage study-sprig"><i class="sprig"></i></div>
+          <span class="frame__num">Look 04</span>
+          <div class="frame__cap"><span>Ручная вышивка</span><span>→</span></div>
+        </div>
+        <p class="look__caption"><b>Кардиган с вышивкой</b><span>Смотреть коллекцию</span></p>
+      </article>
+
+      <article class="look">
+        <div class="frame">
+          <div class="fill fold-b pleats"></div>
+          <span class="frame__num">Look 05</span>
+          <div class="frame__cap"><span>Мягкие складки</span><span>→</span></div>
+        </div>
+        <p class="look__caption"><b>Костюм льняной</b><span>Смотреть коллекцию</span></p>
+      </article>
+
+      <article class="look">
+        <div class="frame">
+          <div class="fill linen tone-sand study-giant"><span>22</span></div>
+          <span class="frame__num">Look 06</span>
+          <div class="frame__cap"><span>Коллекция сезона</span><span>→</span></div>
+        </div>
+        <p class="look__caption"><b>Пальто-рубашка</b><span>Смотреть коллекцию</span></p>
+      </article>
+    </div>
+  </div>
+</body>
+</html>

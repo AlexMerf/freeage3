@@ -1,0 +1,61 @@
+/* 746×458 screens for the animated store tour. */
+
+html,
+body {
+  width: 746px;
+  height: 458px;
+  background: var(--paper);
+}
+
+.page {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  background: var(--paper);
+}
+
+.top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex: none;
+  height: 40px;
+  padding: 0 24px;
+  border-bottom: 1px solid var(--line);
+}
+
+.top .wordmark { font-size: 8px; letter-spacing: 0.3em; }
+.top__nav { display: flex; gap: 15px; font-size: 6px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
+.top__nav .is-active { color: var(--ink); }
+.top__icons { display: flex; gap: 9px; align-items: center; }
+.top .icon { width: 7px; height: 7px; }
+
+.main { flex: 1; min-height: 0; overflow: hidden; }
+
+.foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex: none;
+  height: 20px;
+  padding: 0 24px;
+  border-top: 1px solid var(--line);
+  font-size: 5.5px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.crumb { padding: 14px 24px 0; font-size: 5.5px; letter-spacing: 0.08em; color: var(--muted); }
+.crumb span { color: var(--ink-soft); }
+
+.head { padding: 8px 24px 14px; }
+.head h1 { font-size: 22px; font-weight: 600; line-height: 1.02; letter-spacing: -0.035em; text-transform: uppercase; }
+.head p { margin-top: 5px; font-size: 6.5px; line-height: 1.5; color: var(--muted); }
+
+.grid3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; padding: 0 24px; }
+
+.pcard__img { height: 128px; }
+.pcard__name { margin-top: 6px; font-size: 6.5px; line-height: 1.35; }
+.pcard__price { margin-top: 2px; font-size: 6px; color: var(--accent); }

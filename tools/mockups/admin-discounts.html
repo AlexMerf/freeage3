@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<title>admin-discounts</title>
+<link rel="stylesheet" href="mock.css">
+<style>
+  html, body { width: 1586px; height: 992px; }
+
+  .app { display: flex; height: 100%; background: #f6f4f0; }
+
+  /* ---------- sidebar ---------- */
+  .side {
+    display: flex;
+    flex-direction: column;
+    flex: none;
+    width: 212px;
+    padding: 26px 18px;
+    background: #211d18;
+    color: #ece5d8;
+  }
+
+  .side__brand {
+    padding: 0 10px 26px;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.24em;
+  }
+
+  .side__nav { display: flex; flex-direction: column; gap: 4px; }
+
+  .side__item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 10px;
+    border-radius: 6px;
+    font-size: 12.5px;
+    color: rgba(236, 229, 216, 0.7);
+  }
+
+  .side__item.is-active {
+    background: rgba(202, 159, 117, 0.14);
+    color: #f4efe6;
+    box-shadow: inset 3px 0 0 #ca9f75;
+  }
+
+  .side__icon {
+    position: relative;
+    width: 15px;
+    height: 15px;
+    border: 1.4px solid currentColor;
+    border-radius: 2px;
+    opacity: 0.8;
+  }
+
+  .side__icon--round { border-radius: 50%; }
+  .side__icon--tag { border-radius: 2px 2px 2px 6px; transform: rotate(-45deg); width: 13px; height: 13px; }
+  .side__icon--gear { border-radius: 50%; box-shadow: 0 0 0 2px #211d18, 0 0 0 3.4px currentColor; }
+
+  .side__foot {
+    margin-top: auto;
+    padding: 0 10px;
+    font-size: 9px;
+    line-height: 1.5;
+    color: rgba(236, 229, 216, 0.38);
+  }
+
+  /* ---------- main ---------- */
+  .main { position: relative; flex: 1; min-width: 0; background: #f6f4f0; }
+
+  .top {
+    display: flex;
+    align-items: center;
+    height: 86px;
+    padding: 0 34px;
+    border-bottom: 1px solid rgba(21, 18, 13, 0.1);
+  }
+
+  .top__title { font-size: 21px; font-weight: 600; letter-spacing: -0.01em; }
+  .top__sub { margin-top: 2px; font-size: 10px; letter-spacing: 0.06em; color: var(--muted); }
+
+  .top__right { display: flex; align-items: center; gap: 18px; margin-left: auto; }
+
+  .top__bell {
+    position: relative;
+    width: 18px;
+    height: 18px;
+    border: 1.5px solid var(--ink-soft);
+    border-radius: 50% 50% 40% 40%;
+    opacity: 0.55;
+  }
+
+  .avatar {
+    display: grid;
+    place-items: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: #e2d6c4;
+    border: 1px solid rgba(21, 18, 13, 0.12);
+    font-size: 10px;
+    font-weight: 600;
+    color: #6b5535;
+  }
+
+  .content { padding: 24px 34px 0; }
+
+  .toolbar { display: flex; gap: 10px; align-items: center; margin-bottom: 18px; }
+
+  .search {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex: 1;
+    height: 46px;
+    padding: 0 14px;
+    border: 1px solid rgba(21, 18, 13, 0.14);
+    border-radius: 5px;
+    background: #fff;
+    font-size: 12.5px;
+    color: #9a9183;
+  }
+
+  .search__icon {
+    width: 13px;
+    height: 13px;
+    border: 1.6px solid #9a9183;
+    border-radius: 50%;
+  }
+
+  .tbtn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 46px;
+    padding: 0 22px;
+    border: 1px solid rgba(21, 18, 13, 0.16);
+    border-radius: 5px;
+    background: #fff;
+    font-size: 12px;
+    color: var(--ink-soft);
+    white-space: nowrap;
+  }
+
+  .tbtn--accent {
+    border-color: #a9855e;
+    background: linear-gradient(180deg, #b08c63, #a17d55);
+    color: #fff;
+    box-shadow: 0 2px 6px rgba(120, 88, 52, 0.25);
+  }
+
+  .tbtn--icon { width: 46px; padding: 0; }
+
+  /* ---------- table ---------- */
+  .table {
+    overflow: hidden;
+    border: 1px solid rgba(21, 18, 13, 0.1);
+    border-radius: 6px;
+    background: #fff;
+  }
+
+  .thead,
+  .trow {
+    display: grid;
+    grid-template-columns: 46px 430px 120px 110px 1fr;
+    align-items: center;
+    padding: 0 20px;
+  }
+
+  .thead {
+    height: 44px;
+    border-bottom: 1px solid rgba(21, 18, 13, 0.1);
+    font-size: 11px;
+    font-weight: 600;
+    color: #7a7164;
+  }
+
+  .trow {
+    height: 78px;
+    border-bottom: 1px solid rgba(21, 18, 13, 0.07);
+    font-size: 12.5px;
+  }
+
+  .trow:last-child { border-bottom: 0; }
+  .trow.is-selected { background: #fbf7f1; box-shadow: inset 3px 0 0 #ca9f75; }
+
+  .check {
+    display: grid;
+    place-items: center;
+    width: 17px;
+    height: 17px;
+    border: 1.4px solid rgba(21, 18, 13, 0.26);
+    border-radius: 3px;
+    background: #fff;
+  }
+
+  .check.is-on { border-color: #a9855e; background: #a9855e; }
+  .check.is-on::after {
+    content: "";
+    width: 8px;
+    height: 4px;
+    margin-top: -2px;
+    border-left: 1.6px solid #fff;
+    border-bottom: 1.6px solid #fff;
+    transform: rotate(-45deg);
+  }
+
+  .product { display: flex; align-items: center; gap: 16px; }
+
+  .pthumb { width: 86px; height: 62px; flex: none; }
+  .pthumb .sprig { width: 40%; height: 66%; }
+
+  .pname { font-size: 13px; line-height: 1.3; }
+  .part { margin-top: 5px; font-size: 10px; color: #948a7b; }
+
+  .badge {
+    display: inline-block;
+    padding: 3px 8px;
+    border-radius: 3px;
+    background: #f3e7d8;
+    font-size: 10.5px;
+    color: #8a5f2f;
+  }
+
+  .collection { font-size: 12px; color: #4b4438; }
+
+  /* ---------- modal ---------- */
+  .modal {
+    position: absolute;
+    top: 150px;
+    right: 62px;
+    width: 434px;
+    padding: 26px 26px 24px;
+    border-radius: 8px;
+    background: #fff;
+    box-shadow: 0 30px 80px -30px rgba(30, 22, 12, 0.5), 0 0 0 1px rgba(21, 18, 13, 0.08);
+  }
+
+  .modal__head { display: flex; align-items: flex-start; justify-content: space-between; }
+  .modal__title { font-size: 18px; font-weight: 600; letter-spacing: -0.01em; }
+
+  .modal__close {
+    display: grid;
+    place-items: center;
+    width: 22px;
+    height: 22px;
+    color: #8d8475;
+    font-size: 14px;
+  }
+
+  .modal__label { margin: 22px 0 7px; font-size: 10.5px; color: #7d7466; }
+
+  .modal__input {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 42px;
+    padding: 0 12px;
+    border: 1px solid rgba(21, 18, 13, 0.16);
+    border-radius: 4px;
+    background: #fdfcf9;
+    font-size: 12.5px;
+    color: #2f2a22;
+  }
+
+  .modal__hint { margin-top: 5px; font-size: 9.5px; color: #a0988a; }
+
+  .cal {
+    width: 13px;
+    height: 13px;
+    border: 1.4px solid #8d8475;
+    border-radius: 2px;
+    box-shadow: inset 0 4px 0 #8d8475;
+  }
+
+  .opts { display: flex; flex-direction: column; gap: 13px; margin-top: 20px; }
+
+  .opt { display: flex; align-items: center; gap: 11px; font-size: 11.5px; color: #4b4438; }
+
+  .opt .check { width: 16px; height: 16px; }
+
+  .modal__actions { display: flex; gap: 10px; margin-top: 26px; }
+
+  .mbtn {
+    display: grid;
+    place-items: center;
+    height: 44px;
+    border: 1px solid rgba(21, 18, 13, 0.16);
+    border-radius: 4px;
+    background: #fff;
+    font-size: 12px;
+    color: #4b4438;
+  }
+
+  .mbtn--primary {
+    flex: 1;
+    border-color: #a9855e;
+    background: linear-gradient(180deg, #b08c63, #a17d55);
+    color: #fff;
+  }
+
+  .mbtn--ghost { width: 108px; }
+
+  .pager {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 4px;
+    font-size: 11px;
+    color: #8d8475;
+  }
+
+  .pager__pages { display: flex; gap: 6px; }
+
+  .pager__pages i {
+    display: grid;
+    place-items: center;
+    width: 28px;
+    height: 28px;
+    border: 1px solid rgba(21, 18, 13, 0.14);
+    border-radius: 4px;
+    font-style: normal;
+    font-size: 10.5px;
+  }
+
+  .pager__pages i.is-on {
+    border-color: #211d18;
+    background: #211d18;
+    color: #f4efe6;
+  }
+</style>
+</head>
+<body>
+  <div class="app">
+    <aside class="side">
+      <p class="side__brand">MANUFAKTURA</p>
+      <nav class="side__nav">
+        <span class="side__item is-active"><i class="side__icon"></i>Каталог</span>
+        <span class="side__item"><i class="side__icon side__icon--tag"></i>Скидки</span>
+        <span class="side__item"><i class="side__icon side__icon--round"></i>Заказы</span>
+        <span class="side__item"><i class="side__icon"></i>Контент</span>
+        <span class="side__item"><i class="side__icon side__icon--gear"></i>Настройки</span>
+      </nav>
+      <p class="side__foot">Демонстрационная<br>админ-панель</p>
+    </aside>
+
+    <div class="main">
+      <div class="top">
+        <div>
+          <p class="top__title">MANUFAKTURA</p>
+          <p class="top__sub">Управление каталогом</p>
+        </div>
+        <div class="top__right">
+          <i class="top__bell"></i>
+          <span class="avatar">АД</span>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="toolbar">
+          <div class="search"><i class="search__icon"></i>Поиск по товарам…</div>
+          <span class="tbtn tbtn--accent">Добавить товар</span>
+          <span class="tbtn">Импорт</span>
+          <span class="tbtn tbtn--icon">···</span>
+        </div>
+
+        <div class="table">
+          <div class="thead">
+            <span></span>
+            <span>Товар</span>
+            <span>Цена</span>
+            <span>Скидка</span>
+            <span>Коллекция</span>
+          </div>
+
+          <div class="trow">
+            <span class="check"></span>
+            <div class="product">
+              <span class="thumb pthumb linen tone-sand"><span class="sprig"></span></span>
+              <div><p class="pname">Салфетка льняная «Классика»</p><p class="part">Арт. Л-001</p></div>
+            </div>
+            <span>1 200 ₽</span>
+            <span>—</span>
+            <span class="collection">Классика</span>
+          </div>
+
+          <div class="trow">
+            <span class="check"></span>
+            <div class="product">
+              <span class="thumb pthumb linen tone-linen"><span class="sprig"></span></span>
+              <div><p class="pname">Дорожка на стол «Полевые травы»</p><p class="part">Арт. Л-002</p></div>
+            </div>
+            <span>2 800 ₽</span>
+            <span><span class="badge">10%</span></span>
+            <span class="collection">Полевые травы</span>
+          </div>
+
+          <div class="trow is-selected">
+            <span class="check is-on"></span>
+            <div class="product">
+              <span class="thumb pthumb linen tone-ash"><span class="sprig"></span></span>
+              <div><p class="pname">Скатерть «Северный двор»</p><p class="part">Арт. Л-003</p></div>
+            </div>
+            <span>5 600 ₽</span>
+            <span>—</span>
+            <span class="collection">Северный двор</span>
+          </div>
+
+          <div class="trow">
+            <span class="check"></span>
+            <div class="product">
+              <span class="thumb pthumb linen tone-sage"><span class="sprig"></span></span>
+              <div><p class="pname">Полотенце льняное «Усадьба»</p><p class="part">Арт. Л-004</p></div>
+            </div>
+            <span>1 900 ₽</span>
+            <span><span class="badge">15%</span></span>
+            <span class="collection">Усадьба</span>
+          </div>
+
+          <div class="trow">
+            <span class="check"></span>
+            <div class="product">
+              <span class="thumb pthumb linen tone-clay"><span class="sprig"></span></span>
+              <div><p class="pname">Салфетка льняная «Полевые травы»</p><p class="part">Арт. Л-005</p></div>
+            </div>
+            <span>1 400 ₽</span>
+            <span>—</span>
+            <span class="collection">Полевые травы</span>
+          </div>
+
+          <div class="trow">
+            <span class="check"></span>
+            <div class="product">
+              <span class="thumb pthumb linen tone-linen"><span class="sprig"></span></span>
+              <div><p class="pname">Полотенце «Полевые травы»</p><p class="part">Арт. Л-006</p></div>
+            </div>
+            <span>2 300 ₽</span>
+            <span><span class="badge">20%</span></span>
+            <span class="collection">Полевые травы</span>
+          </div>
+
+          <div class="trow">
+            <span class="check"></span>
+            <div class="product">
+              <span class="thumb pthumb linen tone-sand"><span class="sprig"></span></span>
+              <div><p class="pname">Полотенце льняное «Классика»</p><p class="part">Арт. Л-007</p></div>
+            </div>
+            <span>2 100 ₽</span>
+            <span>—</span>
+            <span class="collection">Классика</span>
+          </div>
+
+          <div class="trow">
+            <span class="check"></span>
+            <div class="product">
+              <span class="thumb pthumb linen tone-ash"><span class="sprig"></span></span>
+              <div><p class="pname">Скатерть «Усадьба»</p><p class="part">Арт. Л-008</p></div>
+            </div>
+            <span>6 400 ₽</span>
+            <span><span class="badge">10%</span></span>
+            <span class="collection">Усадьба</span>
+          </div>
+        </div>
+
+        <div class="pager">
+          <span>Показано 8 из 24</span>
+          <span class="pager__pages"><i class="is-on">1</i><i>2</i><i>3</i></span>
+        </div>
+      </div>
+
+      <div class="modal">
+        <div class="modal__head">
+          <p class="modal__title">Скидка для группы товаров</p>
+          <span class="modal__close">✕</span>
+        </div>
+
+        <p class="modal__label">Размер скидки</p>
+        <div class="modal__input">20%</div>
+
+        <p class="modal__label">Период действия</p>
+        <div class="modal__input"><span>01.09.2022 — 30.09.2022</span><i class="cal"></i></div>
+        <p class="modal__hint">Для всех товаров выбранной коллекции</p>
+
+        <div class="opts">
+          <span class="opt"><span class="check is-on"></span>Применить к коллекции «Полевые травы»</span>
+          <span class="opt"><span class="check is-on"></span>Показывать в каталоге</span>
+        </div>
+
+        <div class="modal__actions">
+          <span class="mbtn mbtn--primary">Сохранить</span>
+          <span class="mbtn mbtn--ghost">Отмена</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
